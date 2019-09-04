@@ -4,8 +4,15 @@
 
 import React, {Component} from "react";
 import {AppRegistry, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import Card from './Card';
+import Card from './models/Card';
+import DeckOfCards from './models/DeckOfCards';
 import {name as appName} from './app.json';
+
+
+
+const cardone = new Card("Spaces","3", 3);
+const deck = new DeckOfCards();
+
 
 
 export default class RocketToTheTop extends Component {
