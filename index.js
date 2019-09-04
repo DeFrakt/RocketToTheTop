@@ -10,8 +10,12 @@ import {name as appName} from './app.json';
 
 
 
-const cardone = new Card("Spaces","3", 3);
-const deck = new DeckOfCards();
+var deck = new DeckOfCards();
+for(var i=0; i< deck.getDeck().length; i++){
+    console.log(deck.getDeck()[i].getCard());
+}
+
+
 
 
 
