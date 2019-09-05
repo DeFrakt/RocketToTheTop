@@ -37,13 +37,16 @@ export default class DeckOfCards {
                 deck.push(card);
             }
         }
-        this.deck = deck;
+        //shuffle deck
+        var shuffledDeck = this.shuffleDeck(deck);
+        //set deck
+        this.deck = shuffledDeck;
 
     }
 
     getDeck = () => {
-        var shuffledDeck = this.shuffleDeck(this.deck);
-        return shuffledDeck;
+        //returns Array
+        return this.deck;
     }
 
     shuffleDeck = (array) => {
@@ -60,7 +63,10 @@ export default class DeckOfCards {
           array[m] = array[i];
           array[i] = t;
         }
-      
         return array;
+    }
+    deal1Card = () => {
+        var dealing = this.getDeck().shift();
+        return dealing;
     }
 }
