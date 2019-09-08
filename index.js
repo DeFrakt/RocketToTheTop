@@ -25,13 +25,15 @@ for(var i=0; i< DECK.getDeck().length; i++){
 }
 console.log("===================================");
 CARD_PILE1.addToCP(DECK.deal1Card());
-CARD_PILE2.moveAndRemoveFrom(CARD_PILE1.getCP());
-console.log(CARD_PILE2.getCP()[0].getCard());
+CARD_PILE1.addToCP(DECK.deal1Card());
+// CARD_PILE2.moveAndRemoveFrom(CARD_PILE1.getCP());
+// console.log(CARD_PILE2.getCP()[0].getCard());
 // console.log(CARD_PILE2.getCP()[0].getCard());
 console.log("===================================");
-for(var i=0; i< DECK.getDeck().length; i++){
-    console.log(DECK.getDeck()[i].getCard());
-}
+// for(var i=0; i< DECK.getDeck().length; i++){
+//     console.log(DECK.getDeck()[i].getCard());
+// }
+console.log("===================================");
 
 //End Tests ///////////////////////////////////
 ///////////////////////////////////////////////
@@ -51,10 +53,26 @@ export default class RocketToTheTop extends Component {
             score: -52
         }
     }
-    
+
     //Start Game
-    componentDidMount(){
+    componentDidMount = () => {
         this.initializeGame();
+    }
+
+    deal = () => {
+        
+    }
+
+    renderCard = (cardPilePosition) => {
+        // Check if Cards are in Array to render for pile
+        console.log(cardPilePosition.getCP().length);
+        if(cardPilePosition.getCP().length != 0){
+            for(var i=0; i< cardPilePosition.getCP().length; i++){
+                console.log(cardPilePosition.getCP()[i].getCard());
+            }
+           
+        }
+
     }
 
     //Set React-Native State
@@ -70,13 +88,15 @@ export default class RocketToTheTop extends Component {
         })
     }
 
+
+
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.cardPile}>
-
+                            {this.renderCard(CARD_PILE1)}
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
 
