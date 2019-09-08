@@ -10,27 +10,27 @@ import {name as appName} from './app.json';
 
 //create CardPiles 1-4, Deck, DiscardPile
 
-var cardPile1 = new CardPile();
-var cardPile2 = new CardPile();
-var cardPile3 = new CardPile();
-var cardPile4 = new CardPile();
-var deck = new DeckOfCards();
-var discardPile = new CardPile();
+var CARD_PILE1 = new CardPile();
+var CARD_PILE2 = new CardPile();
+var CARD_PILE3 = new CardPile();
+var CARD_PILE4 = new CardPile();
+var DECK = new DeckOfCards();
+var DISCARD_PILE = new CardPile();
 
 //Tests///////////////////////////////////////
 //////////////////////////////////////////////
 
-for(var i=0; i< deck.getDeck().length; i++){
-    console.log(deck.getDeck()[i].getCard());
+for(var i=0; i< DECK.getDeck().length; i++){
+    console.log(DECK.getDeck()[i].getCard());
 }
 console.log("===================================");
-cardPile1.addToCP(deck.deal1Card());
-cardPile2.moveAndRemoveFrom(cardPile1.getCP());
-console.log(cardPile2.getCP()[0].getCard());
-// console.log(cardPile2.getCP()[0].getCard());
+CARD_PILE1.addToCP(DECK.deal1Card());
+CARD_PILE2.moveAndRemoveFrom(CARD_PILE1.getCP());
+console.log(CARD_PILE2.getCP()[0].getCard());
+// console.log(CARD_PILE2.getCP()[0].getCard());
 console.log("===================================");
-for(var i=0; i< deck.getDeck().length; i++){
-    console.log(deck.getDeck()[i].getCard());
+for(var i=0; i< DECK.getDeck().length; i++){
+    console.log(DECK.getDeck()[i].getCard());
 }
 
 //End Tests ///////////////////////////////////
@@ -42,48 +42,62 @@ export default class RocketToTheTop extends Component {
 
         //intiate game state
         this.state = {
-            cardPile1 : cardPile1,
-            cardPile2 : cardPile2,
-            cardPile3 : cardPile3,
-            cardPile4 : cardPile4,
-            discardPile : discardPile,
-            deck : deck
+            cardPile1 : CARD_PILE1,
+            cardPile2 : CARD_PILE2,
+            cardPile3 : CARD_PILE3,
+            cardPile4 :CARD_PILE4,
+            discardPile : DISCARD_PILE,
+            deck : DECK,
+            score: -52
         }
     }
+    
+    //Start Game
+    componentDidMount(){
+        this.initializeGame();
+    }
 
+    //Set React-Native State
     initializeGame = () => {
         this.setState({
-            cardPile1 : cardPile1,
-            cardPile2 : cardPile2,
-            cardPile3 : cardPile3,
-            cardPile4 : cardPile4,
-            discardPile : discardPile,
-            deck : deck
+            cardPile1 : CARD_PILE1,
+            cardPile2 : CARD_PILE2,
+            cardPile3 : CARD_PILE3,
+            cardPile4 :CARD_PILE4,
+            discardPile : DISCARD_PILE,
+            deck : DECK,
+            score: -52
         })
     }
 
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.cardPile}>
+                <View style={styles.containerTop}>
+                    <View style={styles.row}>
+                        <TouchableOpacity style={styles.cardPile}>
 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cardPile}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cardPile}>
 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cardPile}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cardPile}>
 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cardPile}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cardPile}>
 
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.row}>
-                    <TouchableOpacity style={styles.cardPile}>
+           
+                <View style={styles.containerBot}>
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress={() => this.deal()} style={styles.cardPile}>
 
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+                
             </View>
         );
     }
@@ -103,11 +117,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start"
     },
+    containerTop:{
+        flex: 2,
+        backgroundColor: "green",
+        alignItems: "center",
+        justifyContent: "flex-start"
+    },
     containerBot:{
         flex: 1,
-        backgroundColor: "#e5e4e2",
+        backgroundColor: "blue",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "flex-end",
+    
     },
     row:{
         flexDirection: "row"
