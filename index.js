@@ -47,7 +47,7 @@ export default class RocketToTheTop extends Component {
             cardPile1 : CARD_PILE1,
             cardPile2 : CARD_PILE2,
             cardPile3 : CARD_PILE3,
-            cardPile4 :CARD_PILE4,
+            cardPile4 : CARD_PILE4,
             discardPile : DISCARD_PILE,
             deck : DECK,
             score: -52
@@ -60,45 +60,38 @@ export default class RocketToTheTop extends Component {
     }
 
     deal = () => {
-//set state to cardpiles 1-4
-
-        this.setState({
-            cardPile1 : this.state.cardPile1.addToCP(this.state.deck.deal1Card()),
-            cardPile2 : this.state.cardPile2.addToCP(this.state.deck.deal1Card()),
-            cardPile3 : this.state.cardPile3.addToCP(this.state.deck.deal1Card()),
-            cardPile4 : this.state.cardPile4.addToCP(this.state.deck.deal1Card())
-        })
-
         //deal to cardpiles 1-4
-        
-       
-        
-       
-        console.log("Dealing");
-        for(var i=0; i< this.state.cardPile1.getCP().length; i++){
-            console.log(this.state.cardPile1.getCP()[i].getCard());
-        }
-        
-        //set state to cardpiles 1-4
+        var cp1 = this.state.cardPile1.addToCP(this.state.deck.deal1Card());
+        this.state.cardPile2.addToCP(this.state.deck.deal1Card())
+        this.state.cardPile3.addToCP(this.state.deck.deal1Card())
+        this.state.cardPile4.addToCP(this.state.deck.deal1Card())
+        this.setState({cardPile1: cp1});
 
-        // this.setState({
-        //     cardPile1 : cp1update,
-        //     cardPile2 : cp2update,
-        //     cardPile3 : cp3update,
-        //     cardPile4 : cp4update,
-        // })
+        // console.log("Dealing");
+        // for(var i=0; i< this.state.cardPile1.getCP().length; i++){
+        //     console.log(this.state.cardPile1.getCP()[i].getCard());
+        // } 
     }
 
     renderCard = (cardPilePosition) => {
-        // Check if Cards are in Array to render for pile
-        if(cardPilePosition.getCP().length != 0){
-            //render CardPile
-            for(var i=0; i< cardPilePosition.getCP().length; i++){
-                console.log("Render");
-                console.log("===================================");
-                console.log(cardPilePosition.getCP()[i].getCard());
-            }
-        }
+        // Check if Cards are in Array to render for pile\
+       switch(cardPilePosition)
+       {
+            case 1: cardpileRender = this.state.cardPile1; break;
+            // case 2: console.log(2, this.state.cardPile2.getCP().length);
+            // case 3: console.log(3, this.state.cardPile3.getCP().length);
+            // case 4: console.log(4, this.state.cardPile4.getCP().length);
+       }
+
+       console.log(cardpileRender.getCP().length)
+        // if(cardPilePosition.getCP().length > 0){
+        //     //render CardPile
+        //     for(var i=0; i< cardPilePosition.getCP().length; i++){
+        //         console.log("Render");
+        //         console.log("===================================");
+        //         console.log(cardPilePosition.getCP()[i].getCard());
+        //     }
+        // }
     }
 
     //Set React-Native State
@@ -120,16 +113,16 @@ export default class RocketToTheTop extends Component {
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(this.state.cardPile1)}
+                            {this.renderCard(1)}
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(this.state.cardPile2)}
+                            {this.renderCard(2)}
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(this.state.cardPile3)}
+                            {this.renderCard(3)}
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(this.state.cardPile4)}
+                            {this.renderCard(4)}
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -27,7 +27,7 @@ export default class CardPile{
 
 	removeFromCP = () => {
 		//remove 1 card @ end of the Array
-		var card = this.getCp().pop();
+		var card = this.getCP().pop();
 		return card;
 	}
 }		
