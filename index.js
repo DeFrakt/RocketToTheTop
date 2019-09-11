@@ -3,9 +3,9 @@
  */
 
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import CardPile from './models/CardPile';
-import DeckOfCards from './models/DeckOfCards';
+import {AppRegistry, StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import CardPile from './assets/models/CardPile';
+import DeckOfCards from './assets/models/DeckOfCards';
 import {name as appName} from './app.json';
 
 //create CardPiles 1-4, Deck, DiscardPile
@@ -59,41 +59,6 @@ export default class RocketToTheTop extends Component {
         this.initializeGame();
     }
 
-    deal = () => {
-        //deal to cardpiles 1-4
-        var cp1 = this.state.cardPile1.addToCP(this.state.deck.deal1Card());
-        this.state.cardPile2.addToCP(this.state.deck.deal1Card())
-        this.state.cardPile3.addToCP(this.state.deck.deal1Card())
-        this.state.cardPile4.addToCP(this.state.deck.deal1Card())
-        this.setState({cardPile1: cp1});
-
-        // console.log("Dealing");
-        // for(var i=0; i< this.state.cardPile1.getCP().length; i++){
-        //     console.log(this.state.cardPile1.getCP()[i].getCard());
-        // } 
-    }
-
-    renderCard = (cardPilePosition) => {
-        // Check if Cards are in Array to render for pile\
-       switch(cardPilePosition)
-       {
-            case 1: cardpileRender = this.state.cardPile1; break;
-            // case 2: console.log(2, this.state.cardPile2.getCP().length);
-            // case 3: console.log(3, this.state.cardPile3.getCP().length);
-            // case 4: console.log(4, this.state.cardPile4.getCP().length);
-       }
-
-       console.log(cardpileRender.getCP().length)
-        // if(cardPilePosition.getCP().length > 0){
-        //     //render CardPile
-        //     for(var i=0; i< cardPilePosition.getCP().length; i++){
-        //         console.log("Render");
-        //         console.log("===================================");
-        //         console.log(cardPilePosition.getCP()[i].getCard());
-        //     }
-        // }
-    }
-
     //Set React-Native State
     initializeGame = () => {
         this.setState({
@@ -107,22 +72,74 @@ export default class RocketToTheTop extends Component {
         })
     }
 
+    deal = () => {
+        //deal to cardpiles 1-4
+        this.state.cardPile1.addToCP(this.state.deck.deal1Card());
+        this.state.cardPile2.addToCP(this.state.deck.deal1Card());
+        this.state.cardPile3.addToCP(this.state.deck.deal1Card());
+        this.state.cardPile4.addToCP(this.state.deck.deal1Card());
+        //update set to cardpiles 1-4
+        this.setState({
+            cardPile1: this.state.cardPile1,
+            cardPile2: this.state.cardPile2,
+            cardPile3: this.state.cardPile3,
+            cardPile4: this.state.cardPile4
+        });
+        
+        // console.log("Dealing");
+        // for(var i=0; i< this.state.cardPile1.getCP().length; i++){
+        //     console.log(this.state.cardPile1.getCP()[i].getCard());
+        // } 
+    }
+
+    renderCard = (cardPilePosition) => {
+        var cardPileArray = [];
+        // Check if Cards are in Array to render for pile\
+        switch(cardPilePosition)
+        {
+            case 1: currentCardPile = this.state.cardPile1; break;
+            case 2: currentCardPile = this.state.cardPile2; break;
+            case 3: currentCardPile = this.state.cardPile3; break;
+            case 4: currentCardPile = this.state.cardPile4; break;
+        }
+        //get CardPile
+        var getCardPile = currentCardPile.getCP();
+        //Render Card if CardPile and Deck do NOT equal 0
+        if(getCardPile.length > 0 && this.state.deck.getDeck().length > 0){
+            //render CardPile
+            for(var i=0; i< getCardPile.length; i++){
+                // console.log("===================================");
+                // console.log("Render");
+                // console.log(cardpileRender.getCP()[i].getCard());
+                // console.log("===================================");
+                cardPileArray.push(getCardPile[i].getCard());
+            }
+            return cardPileArray;
+        }
+        // else if check for win?
+    }
+
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(1)}
+                        <Text >{this.renderCard(1)}</Text>
+
+                                
+                        
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(2)}
+                            <Image style={styles.card} source={require( "./assets/images/2_Clubs.png" )}></Image>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(3)}
+                        <Image style={styles.card} source={require( "./assets/images/Ace_Hearts.png" )}></Image>
+
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(4)}
+                        <Image style={styles.card} source={require( "./assets/images/Ace_Clubs.png" )}></Image>
+
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -141,6 +158,10 @@ export default class RocketToTheTop extends Component {
 }
 
 const styles = StyleSheet.create({
+    card:{
+        width: 90,
+        height: 140,
+    },
     cardPile:{
         borderWidth: 5,
         width: 100,
