@@ -9,8 +9,13 @@ export default class Card {
     getFaceValue(){
         return this.faceValue;
     }
+
     getCard(){
         return this.faceName + " of " + this.suit;
+    }
+
+    getPic(){
+        return this.faceName + "_" + this.suit;
     }
 
 }

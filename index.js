@@ -108,11 +108,14 @@ export default class RocketToTheTop extends Component {
         if(getCardPile.length > 0 && this.state.deck.getDeck().length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
-                // console.log("===================================");
+                // console.log("====================================");
                 // console.log("Render");
                 // console.log(cardpileRender.getCP()[i].getCard());
-                // console.log("===================================");
-                cardPileArray.push(getCardPile[i].getCard());
+                // console.log("====================================");
+                var cardAsset = "<Image style={styles.card} source={require( './assets/images/" + getCardPile[i].getPic() + ".png' )}></Image>";
+                console.log(cardAsset);
+                cardPileArray.push(cardAsset);
+                
             }
             return cardPileArray;
         }
@@ -125,7 +128,7 @@ export default class RocketToTheTop extends Component {
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.cardPile}>
-                        <Text >{this.renderCard(1)}</Text>
+                            {this.renderCard()}
 
                                 
                         
