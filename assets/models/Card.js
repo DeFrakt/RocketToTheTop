@@ -13,7 +13,7 @@ export default class Card {
     getCard(){
         return this.faceName + " of " + this.suit;
     }
-
+    //string over component?
     getPic(){
         return "<Image style={styles.card} source={require( './assets/images/" + this.faceName + "_" + this.suit +".png' )}></Image>";
     }
