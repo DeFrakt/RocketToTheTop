@@ -7,6 +7,7 @@ import {AppRegistry, StyleSheet, View, Text, TouchableOpacity, Image} from 'reac
 import CardPile from './assets/models/CardPile';
 import DeckOfCards from './assets/models/DeckOfCards';
 import {name as appName} from './app.json';
+import { images } from "./assets/models/ImagePath";
 
 //create CardPiles 1-4, Deck, DiscardPile
 
@@ -113,8 +114,8 @@ export default class RocketToTheTop extends Component {
                 // console.log(cardpileRender.getCP()[i].getCard());
                 // console.log("====================================");
                 // return <Image style={styles.card} source={require( './assets/images/' + getCardPile[i].getPic() +'.png' )}></Image>;
-                // console.log(cardAsset);
-                cardPileArray.push(<Image>getCardPile[i].getPic()</Image>);
+                console.log(getCardPile[i].getPicture());
+                cardPileArray.push(<Image key={i+1} style={styles.card} source={images.TwoClubs.uri}></Image>);
                 
             }
             return cardPileArray;
@@ -124,15 +125,12 @@ export default class RocketToTheTop extends Component {
 
     render(){
       
-
         return(
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.cardPile}>
                             {this.renderCard(1)}
-                
-                        
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
                             <Image style={styles.card} source={require( "./assets/images/2_Clubs.png" )}></Image>
