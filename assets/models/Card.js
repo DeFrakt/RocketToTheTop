@@ -15,7 +15,7 @@ export default class Card {
     }
 
     getPic(){
-        return this.faceName + "_" + this.suit;
+        return "<Image style={styles.card} source={require( './assets/images/" + this.faceName + "_" + this.suit +".png' )}></Image>";
     }
 
 }
