@@ -1,8 +1,9 @@
 const images = {
-    TwoClubs: {
-      imgName: '2_Clubs', 
-      uri: require( '../images/2_Clubs.png' )
-    }
+    TwoClubs: require( '../images/2_Clubs.png' ),
+    TwoSpades: require( '../images/2_Spades.png' )
   }
   
   export { images };
+
+
+  

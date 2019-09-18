@@ -113,9 +113,13 @@ export default class RocketToTheTop extends Component {
                 // console.log("Render");
                 // console.log(cardpileRender.getCP()[i].getCard());
                 // console.log("====================================");
+
+
+
                 // return <Image style={styles.card} source={require( './assets/images/' + getCardPile[i].getPic() +'.png' )}></Image>;
-                console.log(getCardPile[i].getPicture());
-                cardPileArray.push(<Image key={i+1} style={styles.card} source={images.TwoClubs.uri}></Image>);
+                getCardPile[i].getPicture()
+       
+                cardPileArray.push(<Image key={i+1} style={styles.card} source={images.TwoSpades}></Image>);
                 
             }
             return cardPileArray;

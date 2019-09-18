@@ -11,13 +11,11 @@ export default class Card {
     }
 
     getCard(){
-        return this.faceName + " of " + this.suit;
+        return this.faceName + this.suit;
     }
-    
+
     getPicture(){
-        image = {uri: require( '../images/2_Clubs.png' )};
-        return image;
 
+        return "TwoSpades";
     }
-
 }
