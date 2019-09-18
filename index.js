@@ -73,6 +73,65 @@ export default class RocketToTheTop extends Component {
         })
     }
 
+    cardImage = (currentCard) => {
+        switch(currentCard)
+                {
+                    case "TwoClubs" : return images.TwoClubs;
+                    case "TwoSpades" : return images.TwoSpades;
+                    case "TwoDiamonds" : return images.TwoDiamonds;
+                    case "TwoHearts" : return images.TwoHearts;
+                    case "ThreeClubs" : return images.ThreeClubs;
+                    case "ThreeSpades" : return images.ThreeSpades;
+                    case "ThreeDiamonds" : return images.ThreeDiamonds;
+                    case "ThreeHearts" : return images.ThreeHearts;
+                    case "FourClubs" : return images.FourClubs;
+                    case "FourSpades" : return images.FourSpades;
+                    case "FourDiamonds" : return images.FourDiamonds;
+                    case "FourHearts" : return images.FourHearts;
+                    case "FiveClubs" : return images.FiveClubs;
+                    case "FiveSpades" : return images.FiveSpades;
+                    case "FiveDiamonds" : return images.FiveDiamonds;
+                    case "FiveHearts" : return images.FiveHearts;
+                    case "SixClubs" : return images.SixClubs;
+                    case "SixSpades" : return images.SixSpades;
+                    case "SixDiamonds" : return images.SixDiamonds;
+                    case "SixHearts" : return images.SixHearts;
+                    case "SevenClubs" : return images.SevenClubs;
+                    case "SevenSpades" : return images.SevenSpades;
+                    case "SevenDiamonds" : return images.SevenDiamonds;
+                    case "SevenHearts" : return images.SevenHearts;
+                    case "EightClubs" : return images.EightClubs;
+                    case "EightSpades" : return images.EightSpades;
+                    case "EightDiamonds" : return images.EightDiamonds;
+                    case "EightHearts" : return images.EightHearts;
+                    case "NineClubs" : return images.NineClubs;
+                    case "NineSpades" : return images.NineSpades;
+                    case "NineDiamonds" : return images.NineDiamonds;
+                    case "NineHearts" : return images.NineHearts;
+                    case "TenClubs" : return images.TenClubs;
+                    case "TenSpades" : return images.TenSpades;
+                    case "TenDiamonds" : return images.TenDiamonds;
+                    case "TenHearts" : return images.TenHearts;
+                    case "JackClubs" : return images.JackClubs;
+                    case "JackSpades" : return images.JackSpades;
+                    case "JackDiamonds" : return images.JackDiamonds;
+                    case "JackHearts" : return images.JackHearts;
+                    case "QueenClubs" : return images.QueenClubs;
+                    case "QueenSpades" : return images.QueenSpades;
+                    case "QueenDiamonds" : return images.QueenDiamonds;
+                    case "QueenHearts" : return images.QueenHearts;
+                    case "KingClubs" : return images.KingClubs;
+                    case "KingSpades" : return images.KingSpades;
+                    case "KingDiamonds" : return images.KingDiamonds;
+                    case "KingHearts" : return images.KingHearts;
+                    case "AceClubs" : return images.AceClubs;
+                    case "AceSpades" : return images.AceSpades;
+                    case "AceDiamonds" : return images.AceDiamonds;
+                    case "AceHearts" : return images.AceHearts;
+                    default: console.log("Does not match Card"); break;
+                }
+    }
+
     deal = () => {
         //deal to cardpiles 1-4
         this.state.cardPile1.addToCP(this.state.deck.deal1Card());
@@ -109,18 +168,10 @@ export default class RocketToTheTop extends Component {
         if(getCardPile.length > 0 && this.state.deck.getDeck().length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
-                // console.log("====================================");
-                // console.log("Render");
-                // console.log(cardpileRender.getCP()[i].getCard());
-                // console.log("====================================");
-
-
-
-                // return <Image style={styles.card} source={require( './assets/images/' + getCardPile[i].getPic() +'.png' )}></Image>;
-                getCardPile[i].getPicture()
-       
-                cardPileArray.push(<Image key={i+1} style={styles.card} source={images.TwoSpades}></Image>);
-                
+                //get Cardpile array and Find Card
+                var source = this.cardImage(getCardPile[i].getCard());
+                //add image source to array
+                cardPileArray.push(<Image key={i+1} style={styles.card} source={source}></Image>);
             }
             return cardPileArray;
         }
@@ -137,15 +188,13 @@ export default class RocketToTheTop extends Component {
                             {this.renderCard(1)}
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                            <Image style={styles.card} source={require( "./assets/images/2_Clubs.png" )}></Image>
+                            {this.renderCard(2)}  
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                        <Image style={styles.card} source={require( "./assets/images/Ace_Hearts.png" )}></Image>
-
+                            {this.renderCard(3)} 
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cardPile}>
-                        <Image style={styles.card} source={require( "./assets/images/Ace_Clubs.png" )}></Image>
-
+                            {this.renderCard(4)} 
                         </TouchableOpacity>
                     </View>
                 </View>
