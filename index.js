@@ -176,7 +176,7 @@ export default class RocketToTheTop extends Component {
             return cardPileArray;
         }
         // else if check for win?
-        //check for win
+      
     }
 
     render(){
