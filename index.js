@@ -217,6 +217,9 @@ const styles = StyleSheet.create({
     card:{
         width: 90,
         height: 140,
+        marginTop: -100,
+        position: "relative",
+        top: 100
     },
     cardPile:{
         borderWidth: 5,
