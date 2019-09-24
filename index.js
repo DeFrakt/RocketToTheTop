@@ -7,7 +7,7 @@ import {AppRegistry, StyleSheet, View, Text, TouchableOpacity, Image} from 'reac
 import CardPile from './assets/models/CardPile';
 import DeckOfCards from './assets/models/DeckOfCards';
 import {name as appName} from './app.json';
-import { images } from "./assets/models/ImagePath";
+import { images } from "./assets/views/ImagePath";
 
 //create CardPiles 1-4, Deck, DiscardPile
 
@@ -132,6 +132,10 @@ export default class RocketToTheTop extends Component {
                 }
     }
 
+    cardState = (card) => {
+        console.log(card)
+    }
+
     deal = () => {
         //deal to cardpiles 1-4
         this.state.cardPile1.addToCP(this.state.deck.deal1Card());
@@ -168,10 +172,16 @@ export default class RocketToTheTop extends Component {
         if(getCardPile.length > 0 && this.state.deck.getDeck().length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
+                //current card
+                var currentCard = getCardPile[i].getCard();
                 //get Cardpile array and Find Card
-                var source = this.cardImage(getCardPile[i].getCard());
+                var source = this.cardImage(currentCard);
                 //add image source to array
-                cardPileArray.push(<Image key={i+1} style={styles.card} source={source}></Image>);
+                cardPileArray.push(
+                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(currentCard)}>
+                        <Image key={i+1} style={styles.card} source={source}></Image>
+                    </TouchableOpacity>
+                        );
             }
             return cardPileArray;
         }
@@ -181,22 +191,25 @@ export default class RocketToTheTop extends Component {
 
     render(){
       
+
         return(
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
-                        <TouchableOpacity style={styles.cardPile}>
-                            {this.renderCard(1)}
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.cardPile}>
+                        <View style={styles.cardPile}>
+                      
+                                {this.renderCard(1)}
+                 
+                        </View>
+                        <View style={styles.cardPile}>
                             {this.renderCard(2)}  
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.cardPile}>
+                        </View>
+                        <View style={styles.cardPile}>
                             {this.renderCard(3)} 
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.cardPile}>
+                        </View>
+                        <View style={styles.cardPile}>
                             {this.renderCard(4)} 
-                        </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
            
@@ -219,12 +232,21 @@ const styles = StyleSheet.create({
         height: 140,
         marginTop: -100,
         position: "relative",
-        top: 100
+        top: 100,
+
     },
     cardPile:{
         borderWidth: 5,
         width: 100,
         height: 150,
+        alignContent: "center",
+        justifyContent: "center"
+    },
+    cardPileGhost:{
+        color: "red",
+        borderWidth: 5,
+        width: 100,
+        height: 750,
         alignContent: "center",
         justifyContent: "center"
     },
