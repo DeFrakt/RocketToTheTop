@@ -149,11 +149,6 @@ export default class RocketToTheTop extends Component {
             cardPile3: this.state.cardPile3,
             cardPile4: this.state.cardPile4
         });
-        
-        // console.log("Dealing");
-        // for(var i=0; i< this.state.cardPile1.getCP().length; i++){
-        //     console.log(this.state.cardPile1.getCP()[i].getCard());
-        // } 
     }
 
     renderCard = (cardPilePosition) => {
@@ -169,7 +164,8 @@ export default class RocketToTheTop extends Component {
         //get CardPile
         var getCardPile = currentCardPile.getCP();
         //Render Card if CardPile and Deck do NOT equal 0
-        if(getCardPile.length > 0 && this.state.deck.getDeck().length > 0){
+        console.log("Length", this.state.deck.getDeck().length);
+        if(getCardPile.length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
                 //current card
@@ -196,22 +192,21 @@ export default class RocketToTheTop extends Component {
             <View style={styles.container}>
                 <View style={styles.containerTop}>
                     <View style={styles.row}>
-                        <View style={styles.cardPile}>
-                      
-                                {this.renderCard(1)}
-                 
+                        <View style={styles.column}>
+                            {this.renderCard(1)}
                         </View>
-                        <View style={styles.cardPile}>
-                            {this.renderCard(2)}  
+                        <View style={styles.column}>
+                            {this.renderCard(2)}
                         </View>
-                        <View style={styles.cardPile}>
-                            {this.renderCard(3)} 
+                        <View style={styles.column}>
+                            {this.renderCard(3)}
                         </View>
-                        <View style={styles.cardPile}>
-                            {this.renderCard(4)} 
+                        <View style={styles.column}>
+                            {this.renderCard(4)}
                         </View>
                     </View>
                 </View>
+               
            
                 <View style={styles.containerBot}>
                     <View style={styles.row}>
@@ -230,7 +225,7 @@ const styles = StyleSheet.create({
     card:{
         width: 90,
         height: 140,
-        marginTop: -100,
+        marginTop: -115,
         position: "relative",
         top: 100,
 
@@ -244,6 +239,8 @@ const styles = StyleSheet.create({
     },
     cardPileGhost:{
         color: "red",
+
+
         borderWidth: 5,
         width: 100,
         height: 750,
@@ -254,9 +251,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#e5e4e2",
         alignItems: "center",
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        borderWidth: 5
     },
     containerTop:{
+        borderWidth: 5,
         flex: 2,
         backgroundColor: "green",
         alignItems: "center",
@@ -271,7 +270,13 @@ const styles = StyleSheet.create({
     },
     row:{
         flexDirection: "row"
+    },
+    column:{
+
+        borderWidth: 5,
+        flex: 1, flexDirection: 'column'
     }
+    
 });
 
 AppRegistry.registerComponent(appName, () => RocketToTheTop);
