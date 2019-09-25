@@ -6,16 +6,15 @@ export default class Card {
         this.faceValue = faceValue;
     }
 
-    getFaceValue(){
-        return this.faceValue;
-    }
-
     getCard(){
         return this.faceName + this.suit;
     }
 
-    getPicture(){
+    getFaceValue(){
+        return this.faceValue;
+    }
 
-        return "TwoSpades";
+    getSuit(){
+        return this.suit;
     }
 }

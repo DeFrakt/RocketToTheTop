@@ -132,23 +132,61 @@ export default class RocketToTheTop extends Component {
                 }
     }
 
-    cardState = (card) => {
-        console.log(card)
+    cardState = (suit, value) => {
+        //Remove
+        this.removeCard(suit, value);
+        //Move
+        
     }
 
     deal = () => {
-        //deal to cardpiles 1-4
-        this.state.cardPile1.addToCP(this.state.deck.deal1Card());
-        this.state.cardPile2.addToCP(this.state.deck.deal1Card());
-        this.state.cardPile3.addToCP(this.state.deck.deal1Card());
-        this.state.cardPile4.addToCP(this.state.deck.deal1Card());
-        //update set to cardpiles 1-4
-        this.setState({
-            cardPile1: this.state.cardPile1,
-            cardPile2: this.state.cardPile2,
-            cardPile3: this.state.cardPile3,
-            cardPile4: this.state.cardPile4
-        });
+        if(this.state.deck.getDeck().length != 0){
+            //deal to cardpiles 1-4
+            this.state.cardPile1.addToCP(this.state.deck.deal1Card());
+            this.state.cardPile2.addToCP(this.state.deck.deal1Card());
+            this.state.cardPile3.addToCP(this.state.deck.deal1Card());
+            this.state.cardPile4.addToCP(this.state.deck.deal1Card());
+            //update set to cardpiles 1-4
+            this.setState({
+                cardPile1: this.state.cardPile1,
+                cardPile2: this.state.cardPile2,
+                cardPile3: this.state.cardPile3,
+                cardPile4: this.state.cardPile4
+            });
+        }
+    }
+
+    removeCard = (pickedSuit, pickedValue) => {
+        console.log("Pick Card", pickedValue, pickedSuit);
+        //get cardpile 1-4
+        var cardPile1 = this.state.cardPile1.getCP();
+        var cardPile2 = this.state.cardPile2.getCP();
+        var cardPile3 = this.state.cardPile3.getCP();
+        var cardPile4 = this.state.cardPile4.getCP();
+        //get last card in each pile
+        var CP1LastCard = cardPile1[cardPile1.length - 1];
+        var CP2LastCard = cardPile2[cardPile2.length - 1];
+        var CP3LastCard = cardPile3[cardPile3.length - 1];
+        var CP4LastCard = cardPile4[cardPile4.length - 1];
+
+
+        //need to know pile incoming pile number, suit, value
+        //be able to check against the other 3 pile numbers
+        //remove card
+
+        // if(pickedSuit === CP1LastCard.getSuit()){
+        //     console.log("CP1 Same Suite");
+        // }else if(pickedSuit === CP2LastCard.getSuit()){
+        //     console.log("CP2 Same Suite");
+        // }else if(pickedSuit === CP3LastCard.getSuit()){
+        //     console.log("CP3 Same Suite");
+        // }else if(pickedSuit === CP4LastCard.getSuit()){
+        //     console.log("CP4 Same Suite");
+        // }
+
+
+
+        
     }
 
     renderCard = (cardPilePosition) => {
@@ -168,13 +206,15 @@ export default class RocketToTheTop extends Component {
         if(getCardPile.length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
-                //current card
+                //current card, suit, and value
                 var currentCard = getCardPile[i].getCard();
+                var currentCardSuit = getCardPile[i].getSuit();
+                var currentCardValue = getCardPile[i].getFaceValue();
                 //get Cardpile array and Find Card
                 var source = this.cardImage(currentCard);
                 //add image source to array
                 cardPileArray.push(
-                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(currentCard)}>
+                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(currentCardSuit, currentCardValue)}>
                         <Image key={i+1} style={styles.card} source={source}></Image>
                     </TouchableOpacity>
                         );
@@ -186,8 +226,6 @@ export default class RocketToTheTop extends Component {
     }
 
     render(){
-      
-
         return(
             <View style={styles.container}>
                 <View style={styles.containerTop}>
