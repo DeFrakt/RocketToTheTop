@@ -7,8 +7,8 @@ import {AppRegistry, StyleSheet, View, Text, TouchableOpacity, Image} from 'reac
 import CardPile from './assets/models/CardPile';
 import DeckOfCards from './assets/models/DeckOfCards';
 import {name as appName} from './app.json';
+import { cardImage }  from "./assets/controllers/cardImage";
 import { images } from "./assets/views/ImagePath";
-
 //create CardPiles 1-4, Deck, DiscardPile
 
 const CARD_PILE1 = new CardPile();
@@ -73,7 +73,14 @@ export default class RocketToTheTop extends Component {
         })
     }
 
-    cardImage = (currentCard) => {
+    cardState = (suit, value) => {
+        //Remove
+        this.removeCard(suit, value);
+        //Move
+        
+    }
+
+    cardImage =  (currentCard) => {
         switch(currentCard)
                 {
                     case "TwoClubs" : return images.TwoClubs;
@@ -130,13 +137,6 @@ export default class RocketToTheTop extends Component {
                     case "AceHearts" : return images.AceHearts;
                     default: console.log("Does not match Card"); break;
                 }
-    }
-
-    cardState = (suit, value) => {
-        //Remove
-        this.removeCard(suit, value);
-        //Move
-        
     }
 
     deal = () => {
