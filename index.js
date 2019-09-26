@@ -172,17 +172,18 @@ export default class RocketToTheTop extends Component {
 
         //need to know pile incoming pile number, suit, value
         //be able to check against the other 3 pile numbers
+        //
         //remove card
 
-        // if(pickedSuit === CP1LastCard.getSuit()){
-        //     console.log("CP1 Same Suite");
-        // }else if(pickedSuit === CP2LastCard.getSuit()){
-        //     console.log("CP2 Same Suite");
-        // }else if(pickedSuit === CP3LastCard.getSuit()){
-        //     console.log("CP3 Same Suite");
-        // }else if(pickedSuit === CP4LastCard.getSuit()){
-        //     console.log("CP4 Same Suite");
-        // }
+        if(pickedSuit === CP1LastCard.getSuit()){
+            console.log("CP1 Same Suite");
+        }else if(pickedSuit === CP2LastCard.getSuit()){
+            console.log("CP2 Same Suite");
+        }else if(pickedSuit === CP3LastCard.getSuit()){
+            console.log("CP3 Same Suite");
+        }else if(pickedSuit === CP4LastCard.getSuit()){
+            console.log("CP4 Same Suite");
+        }
 
 
 
@@ -245,7 +246,6 @@ export default class RocketToTheTop extends Component {
                     </View>
                 </View>
                
-           
                 <View style={styles.containerBot}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={() => this.deal()} style={styles.cardPile}>
@@ -253,7 +253,6 @@ export default class RocketToTheTop extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                
             </View>
         );
     }
