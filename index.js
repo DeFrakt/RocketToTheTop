@@ -156,35 +156,97 @@ export default class RocketToTheTop extends Component {
         }
     }
 
-    removeCard = (pickedSuit, pickedValue) => {
+    findPileRemoveCard = (pile) => {
+        switch(pile){
+            case 1:
+                //remove Card from Pile 1  
+                this.state.cardPile1.removeFromCP();
+                //Set State CardPile 1
+                this.setState({
+                    cardPile1: this.state.cardPile1,
+                }); 
+                console.log("Removing From Pile1");
+                break;
+            case 2:
+                //remove Card from Pile 1  
+                this.state.cardPile2.removeFromCP();
+                //Set State CardPile 1
+                this.setState({
+                    cardPile2: this.state.cardPile2,
+                }); 
+                console.log("Removing From Pile2");
+                break;
+            case 3:
+                //remove Card from Pile 1  
+                this.state.cardPile3.removeFromCP();
+                //Set State CardPile 1
+                this.setState({
+                    cardPile3: this.state.cardPile3,
+                }); 
+                console.log("Removing From Pile3");
+                break;
+            case 4:
+                //remove Card from Pile 1  
+                this.state.cardPile4.removeFromCP();
+                //Set State CardPile 1
+                this.setState({
+                    cardPile4: this.state.cardPile4,
+                }); 
+                console.log("Removing From Pile4");
+                break;
+        }
+    }
+
+    removeCard = (card) => {
+        //break apart card object
+        var pickedValue = card.getFaceValue();
+        var pickedSuit = card.getSuit();
+        var pickedCard = card.getCard();
         console.log("Pick Card", pickedValue, pickedSuit);
         //get cardpile 1-4
         var cardPile1 = this.state.cardPile1.getCP();
         var cardPile2 = this.state.cardPile2.getCP();
         var cardPile3 = this.state.cardPile3.getCP();
         var cardPile4 = this.state.cardPile4.getCP();
-        //get last card in each pile
-        var CP1LastCard = cardPile1[cardPile1.length - 1];
-        var CP2LastCard = cardPile2[cardPile2.length - 1];
-        var CP3LastCard = cardPile3[cardPile3.length - 1];
-        var CP4LastCard = cardPile4[cardPile4.length - 1];
-
-
-        //need to know pile incoming pile number, suit, value
-        //be able to check against the other 3 pile numbers
-        //
-        //remove card
-
-        if(pickedSuit === CP1LastCard.getSuit()){
-            console.log("CP1 Same Suite");
-        }else if(pickedSuit === CP2LastCard.getSuit()){
-            console.log("CP2 Same Suite");
-        }else if(pickedSuit === CP3LastCard.getSuit()){
-            console.log("CP3 Same Suite");
-        }else if(pickedSuit === CP4LastCard.getSuit()){
-            console.log("CP4 Same Suite");
+        //get last card object
+        var CP1Obj = cardPile1[cardPile1.length - 1];
+        var CP2Obj = cardPile2[cardPile2.length - 1];
+        var CP3Obj = cardPile3[cardPile3.length - 1];
+        var CP4Obj = cardPile4[cardPile4.length - 1];
+        //get last card
+        var cp1LastCard = CP1Obj.getCard();
+        var cp2LastCard = CP2Obj.getCard();
+        var cp3LastCard = CP3Obj.getCard();
+        var cp4LastCard = CP4Obj.getCard();
+        //Find incoming pile number, to remove card for check
+        switch(pickedCard){
+            case cp1LastCard: pile = 1; break;
+            case cp2LastCard: pile = 2; break;
+            case cp3LastCard: pile = 3; break;
+            case cp4LastCard: pile = 4; break;
+            default: pile = 0;
         }
+        console.log("IncomingPile#", pile);
+        //remove card
+        if(pickedSuit === CP1Obj.getSuit() && pile != 1){
+            if(pickedValue < CP1Obj.getFaceValue()){
+                this.findPileRemoveCard(pile);
+            }
+        }else if(pickedSuit === CP2Obj.getSuit() && pile != 2){
+            if(pickedValue < CP2Obj.getFaceValue()){
+                this.findPileRemoveCard(pile);
+            }
+        } else if(pickedSuit === CP3Obj.getSuit() && pile != 3){
+            if(pickedValue < CP3Obj.getFaceValue()){
+                this.findPileRemoveCard(pile);
+            }
+        } else if(pickedSuit === CP4Obj.getSuit() && pile != 4){
+            if(pickedValue < CP4Obj.getFaceValue()){
+                this.findPileRemoveCard(pile);
+            }
+        } 
 
+      
 
 
         
@@ -207,15 +269,14 @@ export default class RocketToTheTop extends Component {
         if(getCardPile.length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
-                //current card, suit, and value
-                var currentCard = getCardPile[i].getCard();
-                var currentCardSuit = getCardPile[i].getSuit();
-                var currentCardValue = getCardPile[i].getFaceValue();
+                //get current card object and its current card
+                var cardObj = getCardPile[i];
+                var currentCard = cardObj.getCard();
                 //get Cardpile array and Find Card
                 var source = this.cardImage(currentCard);
                 //add image source to array
                 cardPileArray.push(
-                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(currentCardSuit, currentCardValue)}>
+                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(cardObj)}>
                         <Image key={i+1} style={styles.card} source={source}></Image>
                     </TouchableOpacity>
                         );
