@@ -73,11 +73,11 @@ export default class RocketToTheTop extends Component {
         })
     }
 
-    cardState = (suit, value) => {
+    cardState = (card) => {
         //Remove
-        this.removeCard(suit, value);
-        //Move
-        
+        this.removeCard(card);
+        //Check to see if Card can Move
+        this.moveCard(card);
     }
 
     cardImage =  (currentCard) => {
@@ -197,6 +197,16 @@ export default class RocketToTheTop extends Component {
         }
     }
 
+    moveCard = (card) =>{
+        //break apart card object
+        var pickedValue = card.getFaceValue();
+        var pickedSuit = card.getSuit();
+        var pickedCard = card.getCard();
+        console.log("& Check if Card can move", pickedCard);
+    
+
+    }
+
     removeCard = (card) => {
         //break apart card object
         var pickedValue = card.getFaceValue();
@@ -208,16 +218,32 @@ export default class RocketToTheTop extends Component {
         var cardPile2 = this.state.cardPile2.getCP();
         var cardPile3 = this.state.cardPile3.getCP();
         var cardPile4 = this.state.cardPile4.getCP();
-        //get last card object
-        var CP1Obj = cardPile1[cardPile1.length - 1];
-        var CP2Obj = cardPile2[cardPile2.length - 1];
-        var CP3Obj = cardPile3[cardPile3.length - 1];
-        var CP4Obj = cardPile4[cardPile4.length - 1];
-        //get last card
-        var cp1LastCard = CP1Obj.getCard();
-        var cp2LastCard = CP2Obj.getCard();
-        var cp3LastCard = CP3Obj.getCard();
-        var cp4LastCard = CP4Obj.getCard();
+        //get last Card object in array / distripute to variables & check if array is 0 (will throw error), do not create variables
+        if (cardPile1.length != 0){
+            var CP1Obj = cardPile1[cardPile1.length - 1];
+            var cp1LastCard = CP1Obj.getCard();
+            var cp1Suit = CP1Obj.getSuit();
+            var cp1Value = CP1Obj.getFaceValue()
+        }
+        if (cardPile2.length != 0){
+            var CP2Obj = cardPile2[cardPile2.length - 1];
+            var cp2LastCard = CP2Obj.getCard();
+            var cp2Suit = CP2Obj.getSuit();
+            var cp2Value = CP2Obj.getFaceValue()
+        }
+        if (cardPile3.length != 0){
+            var CP3Obj = cardPile3[cardPile3.length - 1];
+            var cp3LastCard = CP3Obj.getCard();
+            var cp3Suit = CP3Obj.getSuit();
+            var cp3Value = CP3Obj.getFaceValue()
+        }
+        if (cardPile4.length != 0){
+            var CP4Obj = cardPile4[cardPile4.length - 1];
+            var cp4LastCard = CP4Obj.getCard();
+            var cp4Suit = CP4Obj.getSuit();
+            var cp4Value = CP4Obj.getFaceValue()
+        }
+
         //Find incoming pile number, to remove card for check
         switch(pickedCard){
             case cp1LastCard: pile = 1; break;
@@ -227,29 +253,25 @@ export default class RocketToTheTop extends Component {
             default: pile = 0;
         }
         console.log("IncomingPile#", pile);
-        //remove card
-        if(pickedSuit === CP1Obj.getSuit() && pile != 1){
-            if(pickedValue < CP1Obj.getFaceValue()){
-                this.findPileRemoveCard(pile);
-            }
-        }else if(pickedSuit === CP2Obj.getSuit() && pile != 2){
-            if(pickedValue < CP2Obj.getFaceValue()){
-                this.findPileRemoveCard(pile);
-            }
-        } else if(pickedSuit === CP3Obj.getSuit() && pile != 3){
-            if(pickedValue < CP3Obj.getFaceValue()){
-                this.findPileRemoveCard(pile);
-            }
-        } else if(pickedSuit === CP4Obj.getSuit() && pile != 4){
-            if(pickedValue < CP4Obj.getFaceValue()){
-                this.findPileRemoveCard(pile);
-            }
-        } 
-
-      
-
-
         
+        //remove card
+        if(pickedSuit === cp1Suit && pile != 1){
+            if(pickedValue < cp1Value){
+                this.findPileRemoveCard(pile);
+            }
+        }else if(pickedSuit === cp2Suit && pile != 2){
+            if(pickedValue < cp2Value){
+                this.findPileRemoveCard(pile);
+            }
+        } else if(pickedSuit === cp3Suit && pile != 3){
+            if(pickedValue < cp3Value){
+                this.findPileRemoveCard(pile);
+            }
+        } else if(pickedSuit === cp4Suit && pile != 4){
+            if(pickedValue < cp4Value){
+                this.findPileRemoveCard(pile);
+            }
+        }   
     }
 
     renderCard = (cardPilePosition) => {
@@ -265,7 +287,6 @@ export default class RocketToTheTop extends Component {
         //get CardPile
         var getCardPile = currentCardPile.getCP();
         //Render Card if CardPile and Deck do NOT equal 0
-        console.log("Length", this.state.deck.getDeck().length);
         if(getCardPile.length > 0){
             //render CardPile
             for(var i=0; i< getCardPile.length; i++){
