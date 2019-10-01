@@ -2,11 +2,20 @@
  * @format
  */
 
-import React, {Component} from "react";
-import {AppRegistry, StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import React, { Component } from "react";
+import { 
+    AppRegistry, 
+    Animated,
+    Image,
+    PandResponder,
+    StyleSheet,
+    Text, 
+    TouchableOpacity, 
+    View
+} from 'react-native';
 import CardPile from './assets/models/CardPile';
 import DeckOfCards from './assets/models/DeckOfCards';
-import {name as appName} from './app.json';
+import { name as appName } from './app.json';
 import { cardImage }  from "./assets/controllers/cardImage";
 import { images } from "./assets/views/ImagePath";
 //create CardPiles 1-4, Deck, DiscardPile
@@ -51,13 +60,15 @@ export default class RocketToTheTop extends Component {
             cardPile4 : CARD_PILE4,
             discardPile : DISCARD_PILE,
             deck : DECK,
-            score: -52
+            score: -52,
+            pan: new Animated.ValueXY()
         }
     }
 
     //Start Game
     componentDidMount = () => {
         this.initializeGame();
+      
     }
 
     //Set React-Native State
@@ -69,7 +80,8 @@ export default class RocketToTheTop extends Component {
             cardPile4 :CARD_PILE4,
             discardPile : DISCARD_PILE,
             deck : DECK,
-            score: -52
+            score: -52,
+            pan: new Animated.ValueXY()
         })
     }
 
@@ -202,9 +214,31 @@ export default class RocketToTheTop extends Component {
         var pickedValue = card.getFaceValue();
         var pickedSuit = card.getSuit();
         var pickedCard = card.getCard();
+        //declare empty piles array
+        var emptyPiles = [];
         console.log("& Check if Card can move", pickedCard);
-    
-
+        //are any piles empty?
+        //get cardpile 1-4
+        var cardPile1 = this.state.cardPile1.getCP().length;
+        var cardPile2 = this.state.cardPile2.getCP().length;
+        var cardPile3 = this.state.cardPile3.getCP().length;
+        var cardPile4 = this.state.cardPile4.getCP().length;
+        //find cardpiles = 0
+        if(cardPile1 === 0){
+            emptyPiles.push(1);
+        }
+        if(cardPile2 === 0){
+            emptyPiles.push(2);
+        }
+        if(cardPile3 === 0){
+            emptyPiles.push(3);
+        }
+        if(cardPile4 === 0){
+            emptyPiles.push(4);
+        }
+        for(i=0; i < emptyPiles.length; i++){
+            console.log(emptyPiles[i]);    
+        }
     }
 
     removeCard = (card) => {
@@ -218,7 +252,9 @@ export default class RocketToTheTop extends Component {
         var cardPile2 = this.state.cardPile2.getCP();
         var cardPile3 = this.state.cardPile3.getCP();
         var cardPile4 = this.state.cardPile4.getCP();
-        //get last Card object in array / distripute to variables & check if array is 0 (will throw error), do not create variables
+        //get last Card object in array 
+        //distripute to variables 
+        //& check if array is 0 (will throw error), do not create variables
         if (cardPile1.length != 0){
             var CP1Obj = cardPile1[cardPile1.length - 1];
             var cp1LastCard = CP1Obj.getCard();
