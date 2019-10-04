@@ -4,7 +4,7 @@ Variation of the solitare game Ace's Up. Advanced mode allows for powerup rocket
 
 ## Technologies
 
-React Native | JavaScript ES6 |
+React Native | JavaScript ES6 
 
 <pre>
 npm install -g react-native-cli
