@@ -2,24 +2,32 @@
  * @format
  */
 
+ //import React Modules
 import React, { Component } from "react";
 import { 
     AppRegistry, 
     Animated,
     Image,
     PandResponder,
-    StyleSheet,
     Text, 
     TouchableOpacity, 
     View
 } from 'react-native';
+import { name as appName } from './app.json';
+
+//Import Models
 import CardPile from './assets/models/CardPile';
 import DeckOfCards from './assets/models/DeckOfCards';
-import { name as appName } from './app.json';
-import { cardImage }  from "./assets/controllers/cardImage";
-import { images } from "./assets/views/ImagePath";
-//create CardPiles 1-4, Deck, DiscardPile
 
+//Import Controllers
+import cardImage from './assets/controllers/cardImage';
+
+//Import Views
+import { styles } from "./assets/views/Styles";
+
+import CircleTest from './assets/models/circleTest';
+
+//create CardPiles 1-4, Deck, DiscardPile
 const CARD_PILE1 = new CardPile();
 const CARD_PILE2 = new CardPile();
 const CARD_PILE3 = new CardPile();
@@ -90,65 +98,6 @@ export default class RocketToTheTop extends Component {
         this.removeCard(card);
         //Check to see if Card can Move
         this.moveCard(card);
-    }
-
-    cardImage =  (currentCard) => {
-        switch(currentCard)
-                {
-                    case "TwoClubs" : return images.TwoClubs;
-                    case "TwoSpades" : return images.TwoSpades;
-                    case "TwoDiamonds" : return images.TwoDiamonds;
-                    case "TwoHearts" : return images.TwoHearts;
-                    case "ThreeClubs" : return images.ThreeClubs;
-                    case "ThreeSpades" : return images.ThreeSpades;
-                    case "ThreeDiamonds" : return images.ThreeDiamonds;
-                    case "ThreeHearts" : return images.ThreeHearts;
-                    case "FourClubs" : return images.FourClubs;
-                    case "FourSpades" : return images.FourSpades;
-                    case "FourDiamonds" : return images.FourDiamonds;
-                    case "FourHearts" : return images.FourHearts;
-                    case "FiveClubs" : return images.FiveClubs;
-                    case "FiveSpades" : return images.FiveSpades;
-                    case "FiveDiamonds" : return images.FiveDiamonds;
-                    case "FiveHearts" : return images.FiveHearts;
-                    case "SixClubs" : return images.SixClubs;
-                    case "SixSpades" : return images.SixSpades;
-                    case "SixDiamonds" : return images.SixDiamonds;
-                    case "SixHearts" : return images.SixHearts;
-                    case "SevenClubs" : return images.SevenClubs;
-                    case "SevenSpades" : return images.SevenSpades;
-                    case "SevenDiamonds" : return images.SevenDiamonds;
-                    case "SevenHearts" : return images.SevenHearts;
-                    case "EightClubs" : return images.EightClubs;
-                    case "EightSpades" : return images.EightSpades;
-                    case "EightDiamonds" : return images.EightDiamonds;
-                    case "EightHearts" : return images.EightHearts;
-                    case "NineClubs" : return images.NineClubs;
-                    case "NineSpades" : return images.NineSpades;
-                    case "NineDiamonds" : return images.NineDiamonds;
-                    case "NineHearts" : return images.NineHearts;
-                    case "TenClubs" : return images.TenClubs;
-                    case "TenSpades" : return images.TenSpades;
-                    case "TenDiamonds" : return images.TenDiamonds;
-                    case "TenHearts" : return images.TenHearts;
-                    case "JackClubs" : return images.JackClubs;
-                    case "JackSpades" : return images.JackSpades;
-                    case "JackDiamonds" : return images.JackDiamonds;
-                    case "JackHearts" : return images.JackHearts;
-                    case "QueenClubs" : return images.QueenClubs;
-                    case "QueenSpades" : return images.QueenSpades;
-                    case "QueenDiamonds" : return images.QueenDiamonds;
-                    case "QueenHearts" : return images.QueenHearts;
-                    case "KingClubs" : return images.KingClubs;
-                    case "KingSpades" : return images.KingSpades;
-                    case "KingDiamonds" : return images.KingDiamonds;
-                    case "KingHearts" : return images.KingHearts;
-                    case "AceClubs" : return images.AceClubs;
-                    case "AceSpades" : return images.AceSpades;
-                    case "AceDiamonds" : return images.AceDiamonds;
-                    case "AceHearts" : return images.AceHearts;
-                    default: console.log("Does not match Card"); break;
-                }
     }
 
     deal = () => {
@@ -330,7 +279,7 @@ export default class RocketToTheTop extends Component {
                 var cardObj = getCardPile[i];
                 var currentCard = cardObj.getCard();
                 //get Cardpile array and Find Card
-                var source = this.cardImage(currentCard);
+                var source = cardImage(currentCard);
                 //add image source to array
                 cardPileArray.push(
                     <TouchableOpacity key={i+1} onPress={()=>this.cardState(cardObj)}>
@@ -375,64 +324,6 @@ export default class RocketToTheTop extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    card:{
-        width: 90,
-        height: 140,
-        marginTop: -115,
-        position: "relative",
-        top: 100,
-
-    },
-    cardPile:{
-        borderWidth: 5,
-        width: 100,
-        height: 150,
-        alignContent: "center",
-        justifyContent: "center"
-    },
-    cardPileGhost:{
-        color: "red",
-
-
-        borderWidth: 5,
-        width: 100,
-        height: 750,
-        alignContent: "center",
-        justifyContent: "center"
-    },
-    container:{
-        flex: 1,
-        backgroundColor: "#e5e4e2",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        borderWidth: 5
-    },
-    containerTop:{
-        borderWidth: 5,
-        flex: 2,
-        backgroundColor: "green",
-        alignItems: "center",
-        justifyContent: "flex-start"
-    },
-    containerBot:{
-        flex: 1,
-        backgroundColor: "blue",
-        alignItems: "center",
-        justifyContent: "flex-end",
-    
-    },
-    row:{
-        flexDirection: "row"
-    },
-    column:{
-
-        borderWidth: 5,
-        flex: 1, flexDirection: 'column'
-    }
-    
-});
 
 AppRegistry.registerComponent(appName, () => RocketToTheTop);
 
