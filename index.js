@@ -25,7 +25,7 @@ import cardImage from './assets/controllers/cardImage';
 //Import Views
 import { styles } from "./assets/views/Styles";
 
-import CircleTest from './assets/models/circleTest';
+
 
 //create CardPiles 1-4, Deck, DiscardPile
 const CARD_PILE1 = new CardPile();
