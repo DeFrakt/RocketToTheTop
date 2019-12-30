@@ -8,32 +8,27 @@ import {
     AppRegistry, 
     Animated,
     Image,
-    PandResponder,
     Text, 
     TouchableOpacity, 
     View
 } from 'react-native';
 import { name as appName } from './app.json';
 
-//Import Models
-import CardPile from './assets/models/CardPile';
-import DeckOfCards from './assets/models/DeckOfCards';
+//Import Global Variables
+import { 
+    CARD_PILE1,
+    CARD_PILE2,
+    CARD_PILE3,
+    CARD_PILE4,
+    DECK,
+    DISCARD_PILE
+} from './assets/_globalVariables';
 
 //Import Controllers
 import cardImage from './assets/controllers/cardImage';
 
 //Import Views
 import { styles } from "./assets/views/Styles";
-
-
-
-//create CardPiles 1-4, Deck, DiscardPile
-const CARD_PILE1 = new CardPile();
-const CARD_PILE2 = new CardPile();
-const CARD_PILE3 = new CardPile();
-const CARD_PILE4 = new CardPile();
-const DECK = new DeckOfCards();
-const DISCARD_PILE = new CardPile();
 
 //Tests///////////////////////////////////////
 //////////////////////////////////////////////
@@ -69,14 +64,12 @@ export default class RocketToTheTop extends Component {
             discardPile : DISCARD_PILE,
             deck : DECK,
             score: -52,
-            pan: new Animated.ValueXY()
         }
     }
 
     //Start Game
     componentDidMount = () => {
         this.initializeGame();
-      
     }
 
     //Set React-Native State
@@ -89,7 +82,6 @@ export default class RocketToTheTop extends Component {
             discardPile : DISCARD_PILE,
             deck : DECK,
             score: -52,
-            pan: new Animated.ValueXY()
         })
     }
 
@@ -285,12 +277,11 @@ export default class RocketToTheTop extends Component {
                     <TouchableOpacity key={i+1} onPress={()=>this.cardState(cardObj)}>
                         <Image key={i+1} style={styles.card} source={source}></Image>
                     </TouchableOpacity>
-                        );
+                );
             }
             return cardPileArray;
         }
         // else if check for win?
-      
     }
 
     render(){
