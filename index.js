@@ -12,6 +12,7 @@ import {
     TouchableOpacity, 
     View
 } from 'react-native';
+import Draggable from 'react-native-draggable';
 import { name as appName } from './app.json';
 
 //Import Global Variables
@@ -274,9 +275,21 @@ export default class RocketToTheTop extends Component {
                 var source = cardImage(currentCard);
                 //add image source to array
                 cardPileArray.push(
-                    <TouchableOpacity key={i+1} onPress={()=>this.cardState(cardObj)}>
-                        <Image key={i+1} style={styles.card} source={source}></Image>
-                    </TouchableOpacity>
+                    // <TouchableOpacity key={i+1} onPress={()=>this.cardState(cardObj)}>
+                    //     <Image key={i+1} style={styles.card} source={source}></Image>
+                    // </TouchableOpacity>
+                    <Draggable 
+                    imageSource={require('./assets/views/images/5_Spades.png')} 
+                    renderSize={100} 
+                    x={0}
+                    y={10}
+                    onDragRelease={()=>console.log('on drag release')}
+                    onLongPress={()=>console.log('long press')}
+                    onShortPressRelease={()=>console.log('press drag')}
+                    onPressIn={()=>console.log('in press')}
+                    onPressOut={()=>console.log('out press')}
+                    />
+                    
                 );
             }
             return cardPileArray;
@@ -303,6 +316,12 @@ export default class RocketToTheTop extends Component {
                         </View>
                     </View>
                 </View>
+                
+               
+                
+
+  
+        
                
                 <View style={styles.containerBot}>
                     <View style={styles.row}>
